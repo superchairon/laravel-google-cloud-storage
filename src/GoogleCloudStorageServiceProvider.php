@@ -51,8 +51,8 @@ class GoogleCloudStorageServiceProvider extends ServiceProvider
 
         return new Cache(
             $this->app['cache']->store($config['store']),
-            array_get($config, 'prefix', 'flysystem'),
-            array_get($config, 'expire')
+            Arr::get($config, 'prefix', 'flysystem'),
+            Arr::get($config, 'expire')
         );
     }
 
@@ -67,8 +67,8 @@ class GoogleCloudStorageServiceProvider extends ServiceProvider
             $storageClient = $this->createClient($config);
 
             $bucket = $storageClient->bucket($config['bucket']);
-            $pathPrefix = array_get($config, 'path_prefix');
-            $storageApiUri = array_get($config, 'storage_api_uri');
+            $pathPrefix = Arr::get($config, 'path_prefix');
+            $storageApiUri = Arr::get($config, 'storage_api_uri');
 
             $adapter = new GoogleStorageAdapter($storageClient, $bucket, $pathPrefix, $storageApiUri);
 
@@ -90,7 +90,7 @@ class GoogleCloudStorageServiceProvider extends ServiceProvider
         }
 
         if (isset($config['key_file'])) {
-            $keyFile = array_get($config, 'key_file');
+            $keyFile = Arr::get($config, 'key_file');
             if (is_string($keyFile)) {
                 $options['keyFilePath'] = $keyFile;
             } else {
